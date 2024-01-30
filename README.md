@@ -17,7 +17,11 @@ pip install matplotlib
 
 ## File Navigation
 `archive/`: contains all other datasets
+
 `data/`: contains usable datasets
+
 `heatmap test.py`: initial testing for heatmap creation
+
 `heatmap.py`: main file to run, generates heatmap according to datasets
+
 `tensor creation.py`: testing for tensor array creation, has logic in comments
