@@ -19,7 +19,8 @@ subdiv = 5 (5x5 graph)
 increment_value_lat = (max(Lat) - min(Lat)) / subdiv # = 1
 increment_value_long = (max(Long) - min(Long)) / subdiv # = 1
 '''
-
+import math
+import matplotlib.pyplot as plt
 import tensorly as tl
 import pandas as pd
 import time
@@ -42,17 +43,16 @@ print("Len: " + str(len(lon)))
 print("Range: " + str(max(lon) - min(lon)))
 
 #Preset Variables
-subdiv = 100 #25x25 grid
+subdiv = 10000 #25x25 grid
 tensor = []
 for i in range(subdiv): #create tensor starting values
     tensor.append([])
     for x in range(subdiv):
         tensor[i].append(0)
 
-
 #get incremental values of both arrays
-lat_inc = round(((max(lat) - min(lat))+1)/subdiv, 7)
-lon_inc = round(((max(lon) - min(lon))+1)/subdiv, 7)
+lat_inc = ((max(lat) - min(lat)))/ (subdiv - 1)
+lon_inc = ((max(lon) - min(lon)))/ (subdiv - 1)
 print(str(lat_inc) + " " + str(lon_inc))
 
 latmin = min(lat)
@@ -62,10 +62,10 @@ lonmin = min(lon)
 for i in range(len(lon)):
     #loop_time = time.time()
     
-    tempa = round(lon[i] - lonmin, 7) #use round() to fix floating point error
+    tempa = lon[i] - lonmin
     lonx = int(tempa // lon_inc) #this is the index of the tensor that the value goes into
     
-    tempb = round(lat[i] - latmin, 7)
+    tempb = lat[i] - latmin
     latx = int(tempb // lat_inc)
 
     #region debugging
@@ -87,5 +87,17 @@ for i in range(len(lon)):
         print(i)
     #print('Time {}'.format(1 / (time.time() - loop_time)))  
 
-for i in tensor:
-    print(i)
+for i in range(len(tensor)):
+    for j in range(len(tensor[i])):
+        if(tensor[i][j] != 0):
+            tensor[i][j] = math.log10(tensor[i][j])
+
+# for i in tensor:
+#     print(i)
+
+    
+tensor = tl.tensor(tensor)
+plt.imshow(tensor, cmap='viridis', interpolation='nearest')
+plt.colorbar()
+plt.title('Tensor Heatmap')
+plt.show()
