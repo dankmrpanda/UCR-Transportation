@@ -90,7 +90,7 @@ for i in range(len(lon)):
 for i in range(len(tensor)):
     for j in range(len(tensor[i])):
         if(tensor[i][j] != 0):
-            tensor[i][j] = math.log10(tensor[i][j])
+            tensor[i][j] = math.log(tensor[i][j])
 
 # for i in tensor:
 #     print(i)

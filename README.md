@@ -3,6 +3,7 @@ Tensor methods are very effective in modeling and extracting knowledge from mult
 
 ## Todo
 - [x] Create 2d heatmap
+- [ ] Use numpy to optimize https://www.pythonlikeyoumeanit.com/Module3_IntroducingNumpy/VectorizedOperations.html
 - [ ] "Fix" dimensions of heatmap
 - [ ] Use time as layers (1-2pm change heatmap)
 - [ ] Create 3d heatmap
