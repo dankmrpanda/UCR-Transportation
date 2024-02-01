@@ -20,15 +20,38 @@ increment_value_lat = (max(Lat) - min(Lat)) / subdiv # = 1
 increment_value_long = (max(Long) - min(Long)) / subdiv # = 1
 '''
 import math
+import stat
 import matplotlib.pyplot as plt
 import tensorly as tl
 import pandas as pd
 import time
+import numpy as np
+import statistics
+
+
 file_path = "data/uber-raw-data-apr14.csv"
 selected_col = ['Lat', 'Lon']
 data = pd.read_csv(file_path, usecols=selected_col)
 lat = data.Lat.tolist()
 lon = data.Lon.tolist()
+
+# nathan outlier filter code
+# latStDev = statistics.stdev(lat)
+# lonStDev = statistics.stdev(lon)
+
+# latMean = sum(lat) / len(lat)
+# lonMean = sum(lon) / len(lon)
+
+# i = 0
+# stdVal = 10
+# while i < len(lat):
+#     if (abs(lat[i] - latMean) > abs(latStDev) * stdVal or abs(lon[i] - lonMean) > abs(lonStDev) * stdVal):
+#         del lat[i], lon[i]
+#         i -= 1
+#     if i % 10000 == 0:
+#         print(i)
+#     i += 1
+# del(i)
 
 print("Info of latitudes: ")
 print("Min: " + str(min(lat)))
@@ -43,12 +66,8 @@ print("Len: " + str(len(lon)))
 print("Range: " + str(max(lon) - min(lon)))
 
 #Preset Variables
-subdiv = 10000 #25x25 grid
-tensor = []
-for i in range(subdiv): #create tensor starting values
-    tensor.append([])
-    for x in range(subdiv):
-        tensor[i].append(0)
+subdiv = 30000 #25x25 grid
+tensor = np.zeros((subdiv, subdiv))
 
 #get incremental values of both arrays
 lat_inc = ((max(lat) - min(lat)))/ (subdiv - 1)
@@ -58,7 +77,11 @@ print(str(lat_inc) + " " + str(lon_inc))
 latmin = min(lat)
 lonmin = min(lon)
 
+lat_max = 0
+lat_min = 0
 
+lon_max = 0
+lon_min = 0
 for i in range(len(lon)):
     #loop_time = time.time()
     
@@ -81,23 +104,26 @@ for i in range(len(lon)):
     #     print("lon: " + str(lon[i]))
 
     #endregion
-
+    
+    # if lat[i] == latmin:
+    #     latmin
     tensor[lonx][latx] += 1 #counts the amount of times an interval is reached
     if i % 10000 == 0: #logger
         print(i)
     #print('Time {}'.format(1 / (time.time() - loop_time)))  
+        
 
-for i in range(len(tensor)):
-    for j in range(len(tensor[i])):
-        if(tensor[i][j] != 0):
-            tensor[i][j] = math.log(tensor[i][j])
+def log(x):
+    return np.where(x != 0, np.log(x), x)
 
-# for i in tensor:
-#     print(i)
+#loop_time = time.time()
+tensor = log(tensor)
+#print('Time {}'.format(1 / (time.time() - loop_time))) #Time 0.9045540369322012
+print(tensor)
 
-    
 tensor = tl.tensor(tensor)
 plt.imshow(tensor, cmap='viridis', interpolation='nearest')
 plt.colorbar()
 plt.title('Tensor Heatmap')
 plt.show()
+
