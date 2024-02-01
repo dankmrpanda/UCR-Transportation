@@ -25,6 +25,8 @@ pip install matplotlib
 
 `heatmap test.py`: initial testing for heatmap creation
 
-`heatmap.py`: main file to run, generates heatmap according to datasets
+`natCode.py`: most updated file, used for testing but should be main file to run
+
+`heatmap.py`: stable file to run, generates heatmap according to datasets
 
 `tensor creation.py`: testing for tensor array creation, has logic in comments
