@@ -24,10 +24,10 @@ pip install matplotlib
 
 `data/`: contains usable datasets
 
-`heatmap test.py`: initial testing for heatmap creation
+`heatmap test.py`: initial testing for heatmap creation (outdated)
 
-`natCode.py`: most updated file, used for testing but should be main file to run
+`testing.py`: most recently edited file, may be unstable
 
-`heatmap.py`: stable file to run, generates heatmap according to datasets
+`heatmap.py`: stable & main file to run, generates heatmap according to datasets
 
-`tensor creation.py`: testing for tensor array creation, has logic in comments
+`tensor creation.py`: testing for tensor array creation, has logic in comments (outdated)
