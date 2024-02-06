@@ -17,6 +17,7 @@ Tensor methods are very effective in modeling and extracting knowledge from mult
 pip install -U tensorly
 pip install pandas
 pip install matplotlib
+pip install numpy
 ```
 
 ## File Navigation
