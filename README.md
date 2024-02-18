@@ -7,6 +7,7 @@ Tensor methods are very effective in modeling and extracting knowledge from mult
 - [x] remove outliers | fin 2/5
 - [x] make x and y increments same | fin 2/5
 - [ ] make code run on GPU (for fun)
+- [ ] fix blank lines showing at high subDiv values (either data problem or generation problem)
 - [ ] Use time as layers (1-2pm change heatmap)
 - [ ] Create 3d heatmap
 - [ ] Create 3d changes with time
